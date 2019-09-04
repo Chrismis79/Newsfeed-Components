@@ -122,12 +122,11 @@ const data = [
 */
 const articlesDiv = document.querySelector('.articles');
 
-data.forEach(data => {
-  articlesDiv.append(ArticleCreator(data.title, data.date, data.firstParagraph, data.secondParagraph, data.thirdParagraph))
-})
+
 
 function ArticleCreator(title, date, firstParagraph, secondParagraph, thirdParagraph) {
   //create article elements
+  const articleContain = document.createElement('div');
   const titleh2 = document.createElement('h2');
   const dateP = document.createElement('p');
   const para1 = document.createElement('p');
@@ -136,16 +135,20 @@ function ArticleCreator(title, date, firstParagraph, secondParagraph, thirdParag
   const buttonSpan = document.createElement('span');
 
   //Adding classes
+  articleContain.classList.add('article');
   dateP.classList.add('date');
   buttonSpan.classList.add('expandButton');
+ 
+
 
   //Set up structure of elements
-  articlesDiv.append(titleh2);
-  articlesDiv.append(dateP);
-  articlesDiv.append(para1);
-  articlesDiv.append(para2);
-  articlesDiv.append(para3);
-  articlesDiv.append(buttonSpan);
+  articlesDiv.appendChild(articleContain);
+  articleContain.appendChild(titleh2);
+  articleContain.appendChild(dateP);
+  articleContain.appendChild(para1);
+  articleContain.appendChild(para2);
+  articleContain.appendChild(para3);
+  articleContain.appendChild(buttonSpan);
 
   //set text content
   titleh2.textContent = title;
@@ -155,5 +158,9 @@ function ArticleCreator(title, date, firstParagraph, secondParagraph, thirdParag
   para3.textContent = thirdParagraph;
 
 
-  return titleh2;
+  return articleContain;
 }
+
+data.map(data => {
+  articlesDiv.append(ArticleCreator(data.title, data.date, data.firstParagraph, data.secondParagraph, data.thirdParagraph))
+})
